@@ -1,5 +1,4 @@
-import subprocess
-from utilities import isGit, isMercurial, isBazaar
+from utilities import execute, isGit, isMercurial, isBazaar
 
 def merge(arguments):
     '''
@@ -9,21 +8,14 @@ def merge(arguments):
     if isGit():
         command = ["git", "merge"]
         command.extend(arguments)
-        executeCommand(command)
+        execute(command)
 
     if isMercurial():
         command = ["hg", "merge"]
         command.extend(arguments)
-        executeCommand(command)
+        execute(command)
 
     if isBazaar():
         command = ["bzr", "merge"]
         command.extend(arguments)
-        executeCommand(command)
-
-def executeCommand(command):
-    '''
-    Execute the given command.
-    '''
-
-    subprocess.call(command)
+        execute(command)

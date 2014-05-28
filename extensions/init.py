@@ -1,5 +1,4 @@
-import subprocess
-from utilities import isGit, isMercurial, isBazaar
+from utilities import execute, isGit, isMercurial, isBazaar
 
 def init(arguments):
     '''
@@ -7,17 +6,10 @@ def init(arguments):
     '''
     
     if "git" in arguments or isGit():
-        executeCommand(["git", "init"])
+        execute(["git", "init"])
 
     if "hg" in arguments or isMercurial():
-        executeCommand(["hg", "init"])
+        execute(["hg", "init"])
 
     if "bzr" in arguments or isBazaar():
-        executeCommand(["bzr", "init"])
-
-def executeCommand(command):
-    '''
-    Execute the given command.
-    '''
-
-    subprocess.call(command)
+        execute(["bzr", "init"])

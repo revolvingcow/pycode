@@ -1,5 +1,4 @@
-import subprocess
-from utilities import isGit, isMercurial, isBazaar
+from utilities import execute, isGit, isMercurial, isBazaar
 
 def add(arguments):
     '''
@@ -14,21 +13,14 @@ def add(arguments):
 
         command = ["git", "add"]
         command.extend(arguments)
-        executeCommand(command)
+        execute(command)
 
     if isMercurial():
         command = ["hg", "add"]
         command.extend(arguments)
-        executeCommand(command)
+        execute(command)
 
     if isBazaar():
         command = ["bzr", "add"]
         command.extend(arguments)
-        executeCommand(command)
-
-def executeCommand(command):
-    '''
-    Execute the given command.
-    '''
-
-    subprocess.call(command)
+        execute(command)

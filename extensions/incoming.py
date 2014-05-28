@@ -1,6 +1,4 @@
-import os
-import subprocess
-from utilities import isGit, isMercurial, isBazaar
+from utilities import execute, executeAndReturnResponse, isGit, isMercurial, isBazaar
 
 def incoming(arguments):
     '''
@@ -8,32 +6,17 @@ def incoming(arguments):
     '''
     
     if isGit():
-        out, err = executeCommandWithResponse(["git", "remote"])
+        out, err = executeAndReturnResponse(["git", "remote"])
         if not err and out:
-            executeCommandWithResponse(["git", "remote", "update", "-p"])
-            executeCommand(["git", "log", "..@{u}"])
+            executeAndReturnResponse(["git", "remote", "update", "-p"])
+            execute(["git", "log", "..@{u}"])
 
     if isMercurial():
-        out, err = executeCommandWithResponse(["git", "paths"])
+        out, err = executeAndReturnResponse(["git", "paths"])
         if not err and out:
-            executeCommand(["hg", "incoming"])
+            execute(["hg", "incoming"])
 
     if isBazaar():
-        out, err = executeCommandWithResponse(["bzr", "missing"])
+        out, err = executeAndReturnResponse(["bzr", "missing"])
         if not err and out:
-            executeCommand(["bzr", "missing"])
-
-def executeCommand(command):
-    '''
-    Execute the given command.
-    '''
-
-    subprocess.call(command, stderr=subprocess.STDOUT)
-
-def executeCommandWithResponse(command):
-    '''
-    Execute the given command and return the output and errors.
-    '''
-
-    proc = subprocess.Popen(command, stderr=open(os.devnull, 'w'), stdout=subprocess.PIPE)
-    return proc.communicate()
+            execute(["bzr", "missing"])
