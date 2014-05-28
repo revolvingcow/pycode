@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 
 import os
+import sys
 import subprocess
-import argparse
 import importlib
 
 from utilities import isGit, isMercurial, isBazaar
@@ -71,9 +71,11 @@ class CodeRepository:
         return extensionExecuted 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="")
-    parser.add_argument("commands", metavar="commands", nargs="+")
-    args = parser.parse_args()
+    args = sys.argv
+
+    if len(args) < 2:
+        print("Please supply a command.")
+        exit(3)
 
     repo = CodeRepository()
-    repo.run(args.commands)
+    repo.run(args[1:])
