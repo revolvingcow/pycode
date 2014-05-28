@@ -7,6 +7,11 @@ def add(arguments):
     '''
     
     if isGit():
+        # If no additional arguments were passed assume
+        # we want to add all pending changes.
+        if len(arguments) == 0:
+            arguments.append(".")
+
         command = ["git", "add"]
         command.extend(arguments)
         executeCommand(command)
