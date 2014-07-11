@@ -13,7 +13,6 @@ class CodeRepository:
         Initialize the code repository class.
         '''
 
-        self.currentDirectory = os.getcwd()
         self.executingDirectory = os.path.dirname(os.path.realpath(__file__))
         self.extensionDirectory = os.path.join(self.executingDirectory, "extensions")
 
@@ -70,7 +69,7 @@ class CodeRepository:
 
         return extensionExecuted 
 
-if __name__ == "__main__":
+if __name__ == "__main__": #pragma: no cover 
     args = sys.argv
 
     if len(args) < 2:

@@ -12,7 +12,7 @@ def incoming(arguments):
             execute(["git", "log", "..@{u}"])
 
     if isMercurial():
-        out, err = executeAndReturnResponse(["git", "paths"])
+        out, err = executeAndReturnResponse(["hg", "paths"])
         if not err and out:
             execute(["hg", "incoming"])
 
